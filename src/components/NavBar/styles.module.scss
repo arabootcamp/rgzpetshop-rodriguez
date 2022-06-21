@@ -1,0 +1,7 @@
+.navbar { 
+  &__link{
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+}
