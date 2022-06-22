@@ -1,0 +1,15 @@
+.width{
+  &_33 {
+    min-width: 33px;
+  }
+
+  &_50 {
+    min-width: 50px;
+  }
+}
+
+.bg{
+  &_gray{
+    background-color: rgb(248, 238, 238);
+  }
+}
