@@ -8,7 +8,7 @@ const ItemList = ({ items }) => {
   return (
     <Container fluid className="m-0 p-0">
       <Row className="justify-content-center">
-        {items.map(el => <Item item={el} key={`item-${el.id}`} />)}
+        {items.map(el => <Item item={el} key={`item${el.id}`} />)}
       </Row>
     </Container>
   );
