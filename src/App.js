@@ -6,7 +6,7 @@ import ItemListContainer from './containers/ItemListContainer';
 function App() {
   return (
     <div className="App">
-      <Container className="p-3 shadow vh-100">
+      < Container className = "p-3 shadow min-vh-100" >
         <NavBar />
         <ItemListContainer greeting="Hola, mensaje desde props" />
       </Container>

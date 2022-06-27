@@ -33,12 +33,9 @@ const ItemCount = ({handleAdd, initial, stock}) => {
     setCount(newCount);
   }
 
-
   return (  
     <div className='d-inline-block mt-5 p-3 border'>
       <div className={`${styles.bg_gray} d-inline-block p-3 me-sm-3`}>
-        <p className="d-inline-block">Camisa Tiger</p>
-        <br/>
         <div className='d-inline-block border border-secondary'>
           <button type="button" onClick={onDecrement} className={`${styles.width_33} btn btn-danger py-1 rounded-0`} disabled={(count===1? true:false)}>-</button>
           <span className={`${styles.width_50} d-inline-block text-center `}>{count}</span>

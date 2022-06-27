@@ -8,6 +8,11 @@ Aplicación de tienda para mascotas (perro y gato) con 3 categorias de productos
 
 ## Desafío 4
 Consideraciones:
+- Se elimino "Camisa Tiger" del componente ItemCount
+- Se uso fetch a la api https://fakestoreapi.com/products
+
+## Desafío 4
+Consideraciones:
 - Props initial=1 y stock=5
 - Si el count llega a 1 o 5 se envia un mensaje.
 - Si count llega a 1 se deshabilita el boton "-"
