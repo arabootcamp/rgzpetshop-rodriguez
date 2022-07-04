@@ -6,7 +6,11 @@ Aplicación de tienda para mascotas (perro y gato) con 3 categorias de productos
 - farmacia
 - juguetes y accesorios. 
 
-## Desafío 4
+## Desafío 6
+Consideraciones:
+- ninguna
+
+## Desafío 5
 Consideraciones:
 - Se elimino "Camisa Tiger" del componente ItemCount
 - Se uso fetch a la api https://fakestoreapi.com/products
