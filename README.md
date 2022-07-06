@@ -39,6 +39,7 @@ Consideraciones
 - Se utiliza ternario con loading para la carga del itemDetail y otras cargas.
 - Se añadio useConter en base a AfterClass Repaso Clase 4 y 5
 - Se uso fetch a la api https://fakestoreapi.com/products 
+- Las variables initial y stock se les asigno valor porque la api utilizada no tiene esos campos, sin embargo en la api para "Ecomerce Tienda de Mascotas rgzpetshop" cada producto tendrá presente estos campos.
 
 ### Desafío 6
 Consideraciones:

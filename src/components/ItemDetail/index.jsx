@@ -29,7 +29,7 @@ const ItemDetail = ({product}) => {
             <p className=''>{product.description}</p>
             <strong className={`${styles.product__price} d-block my-4`}>{product.price}</strong>
           </div>
-          <ItemCount handleAdd={handleAdd} initial={1} stock={5} />
+          <ItemCount handleAdd={handleAdd} initial={1} stock={10} />
         </Col>
       </Row>
     </Container>
