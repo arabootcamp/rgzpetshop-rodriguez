@@ -3,12 +3,12 @@ import Item from '../Item';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 
-const ItemList = ({ items }) => {
+const ItemList = ({ products }) => {
 
   return (
     <Container fluid className="m-0 p-0">
       <Row className="justify-content-center">
-        {items.map(el => <Item item={el} key={`item${el.id}`} />)}
+        {products.map(el => <Item product={el} key={`product${el.id}`} />)}
       </Row>
     </Container>
   );

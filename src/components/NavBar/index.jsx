@@ -6,25 +6,28 @@ import Nav from 'react-bootstrap/Nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPaw,faSignIn} from '@fortawesome/free-solid-svg-icons';
 import CartWidget from '../CartWidget';
+import {Link} from 'react-router-dom';
 
 const NavBar = () => {
   return ( 
     <>
-      <Navbar bg="primary" variant="dark" expand="lg" className="p-3 shadow rounded">
+      <Navbar bg="primary" variant="dark" expand="lg" className="p-3 shadow">
         <Container>
-          <Navbar.Brand href="#home">
+          <Link to='/' className='text-white text-decoration-none'>
             <FontAwesomeIcon icon={faPaw} />
             <span className="ms-3">rgzPetShow</span>
-          </Navbar.Brand>
+          </Link>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="w-100">
-              <Nav.Link href="#home" className={styles.navbar__link}>Home <span className="d-none d-lg-inline">|</span></Nav.Link>
-              <Nav.Link href="#alimento" className={styles.navbar__link}>Alimento <span className="d-none d-lg-inline">|</span></Nav.Link>
-              <Nav.Link href="#farmacia" className={styles.navbar__link}>Farmacia <span className="d-none d-lg-inline">|</span></Nav.Link>
-              <Nav.Link href="#juguetesyaccesorios" className={styles.navbar__link}>Juguetes y Accesorio <span className="d-none d-lg-inline">|</span></Nav.Link>
-              <Nav.Link href="#login" className={`ms-lg-auto ${styles.navbar__link}`} >Login <FontAwesomeIcon icon={faSignIn} /></Nav.Link>
-              <CartWidget />
+              <Link to='/' className={`${styles.navbar__link} my-1 my-lg-0 ms-lg-3 d-flex align-items-center`}>Home <span className="d-none d-lg-inline ps-2">|</span></Link>
+              <Link to='/category/electronics' className={`${styles.navbar__link} my-1 my-lg-0 ms-lg-3 d-flex align-items-center`}>Electronics <span className="d-none d-lg-inline ps-2">|</span></Link>
+              <Link to='/category/jewelery' className={`${styles.navbar__link} my-1 my-lg-0 ms-lg-3 d-flex align-items-center`}>Jewelery <span className="d-none d-lg-inline ps-2">|</span></Link>
+              <Link to="/category/men's clothing" className={`${styles.navbar__link} my-1 my-lg-0 ms-lg-3 d-flex align-items-center`}>Men's clothing <span className="d-none d-lg-inline ps-2">|</span></Link>
+              <Link to="/category/women's clothing" className={`${styles.navbar__link} my-1 my-lg-0 ms-lg-3 d-flex align-items-center`}>Women's clothing <span className="d-none d-lg-inline ps-2">|</span></Link>
+              <Link to='/' className={`my-1 my-lg-0 ms-lg-auto ${styles.navbar__link} d-flex align-items-center`} >Login <FontAwesomeIcon icon={faSignIn} /></Link>
+              <CartWidget productsQuantity={10} className="my-1 my-lg-0"/>
             </Nav>
           </Navbar.Collapse>
         </Container>

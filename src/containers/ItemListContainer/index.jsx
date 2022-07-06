@@ -1,58 +1,67 @@
-import styles from './styles.module.scss';
 import React, { useState, useEffect } from 'react';
-import ItemCount from '../../components/ItemCount';
-import Swal from 'sweetalert2'
-//import withReactContent from 'sweetalert2-react-content'
 import ItemList from '../../components/ItemList';
 import Loader from '../../components/Loader';
 import Alert from 'react-bootstrap/Alert';
+import {useParams} from 'react-router-dom';
 
-const ItemListContainer = ({ greeting }) => {
-  const [items, setItems] = useState([]);
+const ItemListContainer = () => {
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [filteredBy, setFilteredBy] = useState('');
+  
+  const params=useParams();
 
+  //montaje
   useEffect(() => {
-    
-    setItems([]);//esto pq quedaba en cache los items  y al cambiar la url se seguia mostrando
+    setProducts([]);//esto pq quedaba en cache los items  y al cambiar la url se seguia mostrando
     setError(false);//esto pq quedaba en cache el error y al cambiar la url se seguia mostrando
     setLoading(true);
     const url = "https://fakestoreapi.com/products";
-    const getItems = async () => {
+    const getProducts = async () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        setItems([...data]);
+        setProducts([...data]);
       }
       catch (err) {
+        console.log(err);
         setError(true);
       }
       finally {
         setLoading(false);
       }
-
     }
-    getItems();
-  }, [])
+    getProducts();
+  }, []);
 
-  const handleAdd = count => {
-    Swal.fire({
-      icon: 'success',
-      title: `Carrito`,
-      text: `Se agrego el producto al carrito, cantidad: ${count}`,
-    })
+//cuando se actualiza params
+useEffect(()=>{
+  if (params?.id){
+    if ((params.id === 'electronics' || params.id === 'jewelery' || params.id === "men's clothing" || params.id === "women's clothing"))
+      setFilteredBy(params.id);
+    else  
+      setFilteredBy('category not found');
   }
+  else{
+    setFilteredBy('show all');
+  }
+},[params]);
 
   return (
-    <div className='text-center'>
-      <h2 className={`${styles.color_tomato} mt-5 text-center`}>{greeting}</h2>
-      <ItemCount handleAdd={handleAdd} initial={1} stock={5} />
-      <hr />
-      {loading && <Loader />}
-      {error && <Alert  key="danger" variant="danger"> Error en la solicitud a la API </Alert>}
-      {!loading && !error && (items.length === 0) && <Alert key="warning" variant="warning"> No hay productos para listar </Alert>}
-      <ItemList items={items} />
+    <div className='my-5 text-center'>
+      {loading
+        ? <Loader />
+        : error
+          ? <Alert key="danger" variant="danger"> Error en la solicitud a la API </Alert>
+          : products?.length===0
+            ? <Alert key="warning" variant="warning"> No hay productos para listar </Alert>
+            : filteredBy === 'category not found'
+              ? <Alert key="warning2" variant="warning"> Categoria no existe </Alert>
+              : <ItemList products={filteredBy==='show all' ?  products : products.filter(el => el.category === filteredBy)} />
+      }
     </div>
+
   );
 }
 

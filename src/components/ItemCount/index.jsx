@@ -1,48 +1,22 @@
-import React, { useState } from 'react';
-import Swal from 'sweetalert2'
-//import withReactContent from 'sweetalert2-react-content'
+import React from 'react';
 import styles from './styles.module.scss';
+import {useCounter} from '../../hooks/useCounter';
 
 const ItemCount = ({handleAdd, initial, stock}) => {
 
-  const [count, setCount] = useState(initial);
-
-  const onDecrement = () => {
-   
-    let newCount=count - 1;
-    if(newCount === 1){
-      Swal.fire({
-        icon: 'warning',
-        title: `Contador`,
-        text: `El contador es igual a la cantidad mínima 1`,
-      })
-    }
-    setCount(newCount);
-  }
-
-  const onAdd = () => {
-   
-    let newCount = count + 1;
-    if (newCount === stock) {
-      Swal.fire({
-        icon: 'warning',
-        title: `Contador`,
-        text: `El contador es igual a la cantidad máxima, es decir igual al stock ${stock}`,
-      })
-    }
-    setCount(newCount);
-  }
+  const { counter, increment, decrement } = useCounter(initial);
 
   return (  
-    <div className='d-inline-block mt-5 p-3 border'>
-      <div className={`${styles.bg_gray} d-inline-block p-3 me-sm-0`}>
-        <div className='d-inline-block border border-secondary'>
-          <button type="button" onClick={onDecrement} className={`${styles.width_33} btn btn-danger py-1 rounded-0`} disabled={(count===1? true:false)}>-</button>
-          <span className={`${styles.width_50} d-inline-block text-center `}>{count}</span>
-          <button type="button" onClick={onAdd} className={`${styles.width_33} btn btn-primary py-1 rounded-0`} disabled={(count === stock ? true : false)}>+</button>
-        </div>
+    <div className='mt-3 p-2 border'>
+      <div className='d-inline-block border border-secondary'>
+          <button type="button" onClick={()=>decrement(1,initial)} className={`${styles.width_33} btn btn-danger py-1 rounded-0`} disabled={counter === 1 ? true : false}>-</button>
+          <span className={`${styles.width_50} d-inline-block text-center `}>{counter}</span>
+          <button type="button" onClick={()=>increment(1,stock)} className={`${styles.width_33} btn btn-primary py-1 rounded-0`} disabled={counter === stock ? true : false}>+</button>
       </div>
-      <button type="button" onClick={() => handleAdd(count)} className="d-block d-sm-inline-block btn btn-outline-primary py-1 px-2 rounded-0">Agregar al carrito</button>
+      <span className={`${styles.fs_12p} d-block mt-1`}>
+        {(counter === initial) ? `${initial} es el mínimo` : (counter === stock) ? `${stock} es el máximo` : 'añada más!'}
+      </span>
+      <button type="button" onClick={() => handleAdd(counter)} className="btn btn-outline-primary py-1 px-2 mt-2 rounded-0">Agregar al carrito</button>
     </div>
   );
 }
