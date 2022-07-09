@@ -2,8 +2,6 @@ import React from 'react';
 import {Card,Button } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import styles from './styles.module.scss';
-import ItemCount from '../../components/ItemCount';
-import Swal from 'sweetalert2';
 import {useNavigate} from 'react-router-dom';
 
 const Item = ({product}) => {
@@ -12,14 +10,6 @@ const Item = ({product}) => {
 
   const handleDetail = () => {
     navigate(`/item/${product.id}`);
-  }
-
-  const handleAdd = counter => {
-    Swal.fire({
-      icon: 'success',
-      title: `Carrito`,
-      text: `Se agrego el producto al carrito, cantidad: ${counter}`,
-    })
   }
 
   return ( 
@@ -32,9 +22,9 @@ const Item = ({product}) => {
           <div>
             <strong className="d-block my-3 fs-3">{product.price}</strong>
             <Button variant="primary" onClick={handleDetail} className={`${styles.btn_custom_hover} rounded-0 w-100 btn-custom-hover`}>Ver detalle</Button>
-            <ItemCount handleAdd={handleAdd} initial={1} stock={10} />
           </div>
         </Card.Body>
+        <span className="text-end text-primary me-3 mb-2"><strong>stock:</strong><i className=''> {10}</i></span>
       </Card>
   </Col> 
   );

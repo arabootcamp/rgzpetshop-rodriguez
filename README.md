@@ -35,6 +35,11 @@ npm start
 
 ### Desafío 7
 Consideraciones
+- En carpeta routes se creo el componente AppRouter el cual luego se importa en App.js, tal como se aconseja en "Clase complementaria de Context en Acción"
+- Se saca el ItemCount de Item.
+
+### Configurar Routing (primera entrega del proyecto)
+Consideraciones
 - Se respeta setear el tipo de dato en las variables de estado
 - Se utiliza ternario con loading para la carga del itemDetail y otras cargas.
 - Se añadio useConter en base a AfterClass Repaso Clase 4 y 5
