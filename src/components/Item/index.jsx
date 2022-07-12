@@ -3,10 +3,20 @@ import {Card,Button } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import styles from './styles.module.scss';
 import {useNavigate} from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
 
 const Item = ({product}) => {
 
   const navigate = useNavigate();
+  const { cart } = useContext(CartContext);
+
+  //a modo seteo inicial
+  product.initial = 1;
+  product.stock = 10;
+  //si el producto esta en carro rebajo el stock
+  let index = cart.findIndex(el => el.id === product.id);
+  let quantityInCart = (index >= 0) ? cart[index].quantity : 0;
 
   const handleDetail = () => {
     navigate(`/item/${product.id}`);
@@ -24,7 +34,7 @@ const Item = ({product}) => {
             <Button variant="primary" onClick={handleDetail} className={`${styles.btn_custom_hover} rounded-0 w-100 btn-custom-hover`}>Ver detalle</Button>
           </div>
         </Card.Body>
-        <span className="text-end text-primary me-3 mb-2"><strong>stock:</strong><i className=''> {10}</i></span>
+        <span className="text-end text-primary me-3 mb-2"><strong>stock:</strong><i className=''> {product.stock - quantityInCart}</i></span>
       </Card>
   </Col> 
   );

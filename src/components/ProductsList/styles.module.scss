@@ -1,0 +1,7 @@
+.box__img{
+  max-width: 50px;
+  max-height: 50px;
+  &:hover{
+    cursor: pointer;
+  }
+}

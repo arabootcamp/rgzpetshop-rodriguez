@@ -9,6 +9,7 @@ import CartWidget from '../CartWidget';
 import {Link} from 'react-router-dom';
 
 const NavBar = () => {
+
   return ( 
     <>
       <Navbar bg="primary" variant="dark" expand="lg" className="p-3 shadow">
@@ -27,7 +28,7 @@ const NavBar = () => {
               <Link to="/category/men's clothing" className={`${styles.navbar__link} my-1 my-lg-0 ms-lg-3 d-flex align-items-center`}>Men's clothing <span className="d-none d-lg-inline ps-2">|</span></Link>
               <Link to="/category/women's clothing" className={`${styles.navbar__link} my-1 my-lg-0 ms-lg-3 d-flex align-items-center`}>Women's clothing <span className="d-none d-lg-inline ps-2">|</span></Link>
               <Link to='/' className={`my-1 my-lg-0 ms-lg-auto ${styles.navbar__link} d-flex align-items-center`} >Login <FontAwesomeIcon icon={faSignIn} /></Link>
-              <CartWidget productsQuantity={10} className="my-1 my-lg-0"/>
+              <CartWidget className="my-1 my-lg-0"/>
             </Nav>
           </Navbar.Collapse>
         </Container>

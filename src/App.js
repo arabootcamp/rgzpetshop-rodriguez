@@ -1,9 +1,12 @@
 import React from 'react'
+import CartProvider from './context/CartContext';
 import AppRouter from './routes/AppRouter';
 
 function App() {
   return (
-    <AppRouter />
+    <CartProvider>
+      <AppRouter />
+    </CartProvider>
   );
 }
 
