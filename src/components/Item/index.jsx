@@ -12,8 +12,8 @@ const Item = ({product}) => {
   const { cart } = useContext(CartContext);
 
   //a modo seteo inicial
-  product.initial = 1;
   product.stock = 10;
+  product.initial = 1;
   //si el producto esta en carro rebajo el stock
   let index = cart.findIndex(el => el.id === product.id);
   let quantityInCart = (index >= 0) ? cart[index].quantity : 0;

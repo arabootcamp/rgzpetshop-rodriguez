@@ -9,7 +9,7 @@ const ItemCount = ({handleAdd, initial, stock}) => {
   return (  
     <div className=''>
       <div className='d-inline-block border border-secondary'>
-          <button type="button" onClick={()=>decrement(1,initial)} className={`${styles.width_33} btn btn-danger py-1 rounded-0`} disabled={counter === 1 ? true : false}>-</button>
+          <button type="button" onClick={()=>decrement(1,initial)} className={`${styles.width_33} btn btn-danger py-1 rounded-0`} disabled={counter <= 1 ? true : false}>-</button>
           <span className={`${styles.width_50} d-inline-block text-center `}>{counter}</span>
           <button type="button" onClick={()=>increment(1,stock)} className={`${styles.width_33} btn btn-primary py-1 rounded-0`} disabled={counter === stock ? true : false}>+</button>
       </div>

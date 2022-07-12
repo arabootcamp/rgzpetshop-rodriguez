@@ -14,8 +14,8 @@ const ItemDetail = ({product}) => {
   const { addItem, cart } = useContext(CartContext);
 
   //a modo seteo inicial
-  product.initial = 1;
   product.stock = 10;
+  product.initial = 1;
   //si el producto esta en carro rebajo el stock
   let index= cart.findIndex(el => el.id===product.id);
   let quantityInCart= (index>=0) ? cart[index].quantity: 0;
@@ -44,7 +44,9 @@ const ItemDetail = ({product}) => {
             <strong className={`${styles.product__price} d-block my-4`}>{product.price}</strong>
           </div>
           <div>
-            { qtyAdded<=0
+            {(product.stock === quantityInCart)
+              ? <span className='text-danger'>No hay stock!</span>
+              : qtyAdded<=0
               ? <ItemCount handleAdd={handleAdd} initial={product.initial} stock={product.stock - quantityInCart} />
               : <div className='text-center'>
                   <strong className={`${styles.fs_13p} d-block text-success`}>Usted va a agregar {qtyAdded} cantidades del producto al carrito</strong>  
