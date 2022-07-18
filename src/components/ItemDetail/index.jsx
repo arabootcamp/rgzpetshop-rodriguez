@@ -7,7 +7,7 @@ import ItemCount from '../../components/ItemCount';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 
-const ItemDetail = ({product}) => {
+const ItemDetail = ({ product }) => {
 
   const navigate = useNavigate();
   const [qtyAdded, setQtyAdded] = useState(0);
@@ -17,23 +17,23 @@ const ItemDetail = ({product}) => {
   product.stock = 10;
   product.initial = 1;
   //si el producto esta en carro rebajo el stock
-  let index= cart.findIndex(el => el.id===product.id);
-  let quantityInCart= (index>=0) ? cart[index].quantity: 0;
+  let index = cart.findIndex(el => el.id === product.id);
+  let quantityInCart = (index >= 0) ? cart[index].quantity : 0;
 
   const handleAdd = counter => {
     setQtyAdded(counter);
+    addItem(product, counter);
   }
 
   const handleTerminate = () => {
-    addItem(product, qtyAdded);
     navigate('/cart');
-  } 
+  }
 
   return (
     <Container className="my-5">
       <Row>
         <Col lg="4" className="border py-3">
-         <img className={styles.product__img} src={product.image} alt={product.category}/>
+          <img className={styles.product__img} src={product.image} alt={product.category} />
         </Col>
         <Col lg="8" className="py-3 border d-flex flex-column justify-content-between">
           <div>
@@ -44,16 +44,15 @@ const ItemDetail = ({product}) => {
             <strong className={`${styles.product__price} d-block my-4`}>{product.price}</strong>
           </div>
           <div>
-            {(product.stock === quantityInCart)
-              ? <span className='text-danger'>No hay stock!</span>
-              : qtyAdded<=0
+            {(qtyAdded <= 0 && (product.stock > quantityInCart))
               ? <ItemCount handleAdd={handleAdd} initial={product.initial} stock={product.stock - quantityInCart} />
               : <div className='text-center'>
-                  <strong className={`${styles.fs_13p} d-block text-success`}>Usted va a agregar {qtyAdded} cantidades del producto al carrito</strong>  
-                  <button type="button" onClick={handleTerminate} className="btn btn-outline-primary px-2 m-3 rounded-0">Terminar compra</button>
-                </div>}  
+                <strong className={(qtyAdded > 0) ? `${styles.fs_13p} d-block text-success` : 'd-none'}>Usted agregó {qtyAdded} cantidades del producto al carrito</strong>
+                <button type="button" onClick={handleTerminate} className="btn btn-outline-primary px-2 m-3 rounded-0">Terminar compra</button>
+                <span className={(product.stock === quantityInCart) ? 'd-block  text-danger' : 'd-none'}>No queda stock</span>
+              </div>}
             <hr />
-            <button type="button" onClick={() => {navigate(-1)} } className={`${styles.btn_custom_hover} btn btn-primary px-5 my-3 rounded-0`} >Volver a la página anterior</button>
+            <button type="button" onClick={() => { navigate(-1) }} className={`${styles.btn_custom_hover} btn btn-primary px-5 my-3 rounded-0`} >Volver a la página anterior</button>
           </div>
         </Col>
       </Row>

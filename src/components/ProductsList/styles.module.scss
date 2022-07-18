@@ -1,7 +1,21 @@
-.box__img{
+.box__img {
   max-width: 50px;
   max-height: 50px;
-  &:hover{
+
+  &:hover {
     cursor: pointer;
+  }
+}
+
+.grid {
+  display: block;
+}
+
+/*id - title - image */
+/*price - quantity - subtotal - delete */
+@media (min-width: 768px) {
+  .grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
   }
 }

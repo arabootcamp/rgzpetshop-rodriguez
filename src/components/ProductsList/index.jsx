@@ -1,37 +1,54 @@
-import React, {useContext} from 'react'
-import { CartContext } from '../../context/CartContext';
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import React, { useContext } from 'react'
 import styles from './styles.module.scss';
+import { CartContext } from '../../context/CartContext';
+import { Container, Button, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faTrashCan, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 const ProductsTable = () => {
 
   const navigate = useNavigate();
   const { cart, removeItem, clear } = useContext(CartContext);
-  
+
+  let payment = cart.reduce((acc, curr, idx) => (acc + curr.price * curr.quantity), 0).toFixed(2);
+
   return (
     <div>
       <Container fluid>
-        {cart.length > 0 && cart.map(el =>(
-          <Row key={`product-${el.id}`} className="py-2 border border-1">
-            <Col xs="auto" sm="1" xl="1" className="px-4">{el.id}</Col>
-            <Col xs="3" sm="5" xl="6" className="text-start">{el.title}</Col>
-            <Col xs="auto" sm="2" xl="2" className="px-4">
-              <img src={el.image} alt={el.title} className={`${styles.box__img}`} onClick={() => navigate(`/item/${el.id}`)}/>
-              </Col>
-            <Col xs="auto" className="px-4">
-              <span className="d-block py-2 px-3 bg-warning rounded-circle">{el.quantity}</span>
-            </Col>
-            <Col xs="auto" sm="1" className="px-4">
-              <Button variant="light" onClick={() => { removeItem(el.id) }}>
-              <FontAwesomeIcon icon={faTrashCan} className="text-danger" />
-            </Button>
-            </Col>
-          </Row>))}
+        {cart.length > 0 && cart.map(el => (
+          <div key={`product-${el.id}`} className={`${styles.grid} border py-2`}>
+            <div className="d-flex align-items-center">
+              <div className='text-center mx-3'>
+                <img src={el.image} alt={el.title} className={`${styles.box__img}`} onClick={() => navigate(`/item/${el.id}`)} />
+              </div>
+              <span className='mx-3'>{el.title}</span>
+            </div>
+            <div className="mt-3 mt-md-0">
+              <Row>
+                <Col className='d-flex align-items-center mx-3'><span className="">$ {el.price}</span></Col>
+                <Col className='d-flex align-items-center'><span className="bg-warning rounded-circle px-2">{el.quantity}</span></Col>
+                <Col className='d-flex align-items-center'>
+                  <span className="">
+                    $ {el.price * el.quantity}
+                  </span>
+                </Col>
+                <Col className='d-flex align-items-center'>
+                  <Button variant="light" onClick={() => { removeItem(el.id) }} >
+                    <FontAwesomeIcon icon={faTrashCan} className="text-danger" />
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          </div>))}
+        <div className="my-4 border">
+          <span>Total Compra: </span>
+          <strong className='mx-3'>
+            $ {payment}
+            <FontAwesomeIcon icon={faSackDollar} className="text-success mx-2" />
+          </strong>
+        </div>
       </Container>
-
       <hr />
       <Button variant="outline-danger" onClick={() => { clear() }}>
         Eliminar todo <FontAwesomeIcon icon={faTrash} className="fs-4" />

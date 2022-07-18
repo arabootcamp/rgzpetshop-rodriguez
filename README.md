@@ -33,6 +33,13 @@ npm start
 
 ## Otros comentarios
 
+### Desafío 9 - Cart view
+Consideraciones
+- Se aplica feedback tutor, el botón "agregar al carrito" ejecuta la función addItem.
+- Cuando el usuario ingrese al carrito (sin haber agregado productos), se muestra un mensaje y un botón para que el usuario se pueda dirigir al catálogo (la ruta “/”).
+- En ruta /cart si se hace click sobre la imagen lleva al detalle de esta.
+- En ruta /cart total compra se fija con 2 decimales.
+
 ### Desafío 8 - Cart context
 Consideraciones
 - El producto se añade al carro cuando se da click en terminar compra, como se ejemplifico en clases.

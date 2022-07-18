@@ -25,9 +25,7 @@ const CartProvider = ({children}) => {
 
   // Remover un item del cart por usando su id
   const removeItem = id => { 
-    const index = cart.findIndex(product => product.id === id);
-    const newCart = [...cart.slice(0, index), ...cart.slice(index+1, )];
-    setCart(newCart);
+    setCart(cart.filter(el => el.id !== id));
   }
 
   // Remover todos los items
@@ -35,7 +33,7 @@ const CartProvider = ({children}) => {
 
   //isInCart: (id) => true|false
   const isInCart= id => cart.some(product => product.id===id);
-  
+
   //datos del contexto
   const data = { cart, addItem, removeItem, clear, isInCart }
 
