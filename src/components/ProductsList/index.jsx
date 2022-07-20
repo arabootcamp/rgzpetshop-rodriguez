@@ -1,17 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import styles from './styles.module.scss';
-import { CartContext } from '../../context/CartContext';
 import { Container, Button, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faTrashCan, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
+import { numberFormatFn } from '../../helpers/customFunctions';
 
 const ProductsTable = () => {
-
   const navigate = useNavigate();
-  const { cart, removeItem, clear } = useContext(CartContext);
-
-  let payment = cart.reduce((acc, curr, idx) => (acc + curr.price * curr.quantity), 0).toFixed(2);
+  const { cart, removeItem, clear, amountToBePaid } = useContext(CartContext);
 
   return (
     <div>
@@ -26,11 +24,11 @@ const ProductsTable = () => {
             </div>
             <div className="mt-3 mt-md-0">
               <Row>
-                <Col className='d-flex align-items-center mx-3'><span className="">$ {el.price}</span></Col>
+                <Col className='d-flex align-items-center mx-3'><span className="">$ {numberFormatFn(el.price)}</span></Col>
                 <Col className='d-flex align-items-center'><span className="bg-warning rounded-circle px-2">{el.quantity}</span></Col>
                 <Col className='d-flex align-items-center'>
                   <span className="">
-                    $ {el.price * el.quantity}
+                    $ {numberFormatFn(el.price * el.quantity)}
                   </span>
                 </Col>
                 <Col className='d-flex align-items-center'>
@@ -44,7 +42,7 @@ const ProductsTable = () => {
         <div className="my-4 border">
           <span>Total Compra: </span>
           <strong className='mx-3'>
-            $ {payment}
+            $ {numberFormatFn(amountToBePaid())}
             <FontAwesomeIcon icon={faSackDollar} className="text-success mx-2" />
           </strong>
         </div>
@@ -57,4 +55,4 @@ const ProductsTable = () => {
   )
 }
 
-export default ProductsTable
+export default ProductsTable;

@@ -33,6 +33,12 @@ npm start
 
 ## Otros comentarios
 
+### Desafío 10 - Item collection
+Consideraciones
+- Se añaden imagenes de los productos ubicadas en public/assets/imgs
+- Se realizo cambios de nombres a la ruta de un ejercicio anterior category/:id es ahora category/:categoryName y la ruta "item/id" se cambio por "item/:productId", esto con el fin de hacerlo más descriptivo.
+- Se hizo un hoock para el Firestore, en base a lo aprendido en clase complementaria de Repaso Firebase.
+
 ### Desafío 9 - Cart view
 Consideraciones
 - Se aplica feedback tutor, el botón "agregar al carrito" ejecuta la función addItem.

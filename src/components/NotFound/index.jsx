@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import styles from './styles.module.scss';
 
 const NotFound = () => {
   return (
-    <div className='h-100 text-center'>
-      <h3 className='my-5'>NotFound</h3>
+    <div className="d-flex justify-content-center py-5">
+      <img src="/assets/imgs/notfound.png" alt="not found" className={`${styles.box_img}`} />
     </div>
   )
 }
 
-export default NotFound
+export default NotFound;

@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import styles from './styles.module.scss';
-import { CartContext } from '../../context/CartContext';
 import { Alert, Button } from "react-bootstrap";
-import ProductsList from '../../components/ProductsList';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
+import ProductsList from '../../components/ProductsList';
 
 const Cart = () => {
-
   const { cart } = useContext(CartContext);
   const navigate = useNavigate();
 

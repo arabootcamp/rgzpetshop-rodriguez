@@ -10,15 +10,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const AppRouter = () => {
   return (
     <BrowserRouter>
-      <Container className="p-3 shadow min-vh-100" >
+      <Container className="p-3 shadow min-vh-100">
         <NavBar />
         <Routes>
-          <Route path='/' element={<ItemListContainer />}></Route>
-          <Route path='/category/:id' element={<ItemListContainer />}></Route>
-          <Route path='/item/:id' element={<ItemDetailContainer />}></Route>
-          <Route path='/cart' element={<Cart />}></Route>
-          <Route path='*' element={<NotFound />}></Route>
-        </Routes>
+            <Route path="/" element={<ItemListContainer />}></Route>
+            <Route path="/category/:categoryName" element={<ItemListContainer />}></Route>
+            <Route path="/item/:productId" element={<ItemDetailContainer />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+          </Routes>
       </Container>
     </BrowserRouter> 
   )

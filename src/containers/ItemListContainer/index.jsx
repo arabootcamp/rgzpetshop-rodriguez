@@ -1,64 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ItemList from '../../components/ItemList';
 import Loader from '../../components/Loader';
 import Alert from 'react-bootstrap/Alert';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { CategoriesContext } from '../../context/CategoriesContext';
+import { useFirestore } from '../../hooks/useFirestore';
 
 const ItemListContainer = () => {
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [filteredBy, setFilteredBy] = useState('');
+  const [filteredBy, setFilteredBy] = useState("show all");
+  const params = useParams();
+  const { categories } = useContext(CategoriesContext);
+  const config = { 
+    collection: "products", 
+    type: "docs", 
+    filter: (filteredBy === "show all" || filteredBy === "category not found") ? null : filteredBy,  
+  }
+  const { data: products, loading, error } = useFirestore(config);
   
-  const params=useParams();
-
-  //montaje
+  //se define si se muestran todos o por categoria los productos
   useEffect(() => {
-    setProducts([]);//esto pq quedaba en cache los items  y al cambiar la url se seguia mostrando
-    setError(false);//esto pq quedaba en cache el error y al cambiar la url se seguia mostrando
-    setLoading(true);
-    const url = "https://fakestoreapi.com/products";
-    const getProducts = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setProducts([...data]);
-      }
-      catch (err) {
-        console.log(err);
-        setError(true);
-      }
-      finally {
-        setLoading(false);
-      }
+    if (params?.categoryName) {
+      let idx = categories.findIndex(el => el.name === params.categoryName);
+      (idx !== -1) ? setFilteredBy(params.categoryName) : setFilteredBy("category not found");
     }
-    getProducts();
-  }, []);
-
-//cuando se actualiza params
-useEffect(()=>{
-  if (params?.id){
-    if ((params.id === 'electronics' || params.id === 'jewelery' || params.id === "men's clothing" || params.id === "women's clothing"))
-      setFilteredBy(params.id);
-    else  
-      setFilteredBy('category not found');
-  }
-  else{
-    setFilteredBy('show all');
-  }
-},[params]);
+    else{
+      setFilteredBy("show all");
+    }
+  }, [params, categories]);
 
   return (
     <div className='my-5 text-center'>
       {loading
         ? <Loader />
-        : error
-          ? <Alert key="danger" variant="danger"> Error en la solicitud a la API </Alert>
-          : products?.length===0
+        : error.status
+          ? <Alert key="danger" variant="danger"> {error.message} </Alert>
+          : products?.length === 0
             ? <Alert key="warning" variant="warning"> No hay productos para listar </Alert>
             : filteredBy === 'category not found'
               ? <Alert key="warning2" variant="warning"> Categoria no existe </Alert>
-              : <ItemList products={filteredBy==='show all' ?  products : products.filter(el => el.category === filteredBy)} />
+              : <ItemList products={filteredBy === 'show all' ? products : products.filter(el => el.category === filteredBy)} />
       }
     </div>
 

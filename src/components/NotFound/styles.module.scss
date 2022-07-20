@@ -1,0 +1,9 @@
+.box_img { 
+  max-width: 70%;
+}
+
+@media (min-width: 768px){
+  .box_img {
+    max-width: 40%;
+  }
+}
