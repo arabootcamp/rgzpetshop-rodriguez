@@ -6,13 +6,13 @@ import { CartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 
 const CartWidget = () => {
-  const { totalNumberOfProductsInCart } = useContext(CartContext);
+  const { sumOfAllQuantitiesInTheCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
-    <div className={(totalNumberOfProductsInCart() === 0) ? "d-none" : "d-flex align-items-center ms-lg-3 py-2 fs-6"}>
+    <div className={(sumOfAllQuantitiesInTheCart() === 0) ? "d-none" : "d-flex align-items-center ms-lg-3 py-2 fs-6"}>
       <FontAwesomeIcon icon={faCartShopping} className={styles.cartWidget__icon} onClick={() => navigate("/cart")} />
-      <span className="bg-danger text-light px-1 rounded-circle">{totalNumberOfProductsInCart()}</span>
+      <span className="bg-danger text-light px-1 rounded-circle">{sumOfAllQuantitiesInTheCart()}</span>
     </div>
   );
 }

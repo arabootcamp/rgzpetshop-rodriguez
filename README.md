@@ -33,6 +33,15 @@ npm start
 
 ## Otros comentarios
 
+### Desafío 11 - Item collection
+Consideraciones
+- Se elimina el React.StrictMode para evitar duplicados en insert a firestore.
+- Se utilizo Batch Updates para el stock de productos y luego crear la orden.
+- El componente Buyer muestra el formulario del comprador y una vez realizado submit en este se ejecuta la petición a firestore para actualizar los stock de productos y crear la orden.
+- Por el momento la peticion a firestore se realiza por la funciín "savePurchaseOrder" en carpeta utils.
+- Por el momento, si la orden es correcta es decir hay stock se ingresa y se indica el id de la orden generada, en caso de error se indica mensaje de error. Luego de 5 segundos se cierra la ventana modal y se limpia el carrito de compras quedando en la ruta "/cart".
+- Se creo una ruta http://localhost:3000/orders para visualizar ordenes ingresadas (refrescar página para ver nuevas ordenes).
+
 ### Desafío 10 - Item collection
 Consideraciones
 - Se añaden imagenes de los productos ubicadas en public/assets/imgs

@@ -4,7 +4,7 @@ import { useFirestore } from '../hooks/useFirestore';
 const CategoriesContext = createContext();
 
 const CategoriesProvider = ({children}) =>{ 
-  const {data:categories} = useFirestore({collection: "categories", type:"docs", filter: null}); 
+  const {data:categories} = useFirestore({collection: "categories", method: "get", type:"docs", filter: null}); 
   categories.sort( (a, b) => { 
     if(a.name > b.name) return 1;
     if ((a.name < b.name)) return -1;

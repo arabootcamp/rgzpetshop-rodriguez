@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase/config';
-import { doc, getDoc, collection, getDocs, query, where, } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
 
-const useFirestore = ( config ) => {
-  const { collection: collectionParam, type, filter }=config;
+export const useFirestore = ( config ) => {
+  const { collection: collectionParam, method, type, filter }=config;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState({ status: false, message: "" });
@@ -34,14 +34,14 @@ const useFirestore = ( config ) => {
         querySnapshot.forEach((doc) => {
           results.push({ id: doc.id, ...doc.data() });
         });
-        setData(results);
+        setData(results); 
       }
       catch (err) {
         console.log(err);
         setError({ status: true, message: `Error al consultar coleccion ${collection}` });
       }
       finally {
-        setLoading(false);
+        setLoading(false); 
       }
     }
 
@@ -65,13 +65,16 @@ const useFirestore = ( config ) => {
       }
     }
 
-    if (type === "doc") getCollectionDoc();
-    else if (type === "docs" && filter===null) getCollectionDocs();
-    else if (type === "docs" && filter !== null) getCollectionMultipleDocs();
-    else setError({ status: true, message: "config.type no definido" });
-  }, [collectionParam, type, filter]);
+    if(method === "get"){
+      if (type === "doc") getCollectionDoc();
+      else if (type === "docs" && filter === null) getCollectionDocs();
+      else if (type === "docs" && filter !== null) getCollectionMultipleDocs();
+      else setError({ status: true, message: "config.type no definido" });
+    }
+    else 
+      setError({ status: true, message: "config.method no definido" });
+
+  }, [collectionParam, method, type, filter]);
 
   return { data, loading, error };
 }
-
-export { useFirestore };

@@ -11,7 +11,8 @@ const ItemListContainer = () => {
   const params = useParams();
   const { categories } = useContext(CategoriesContext);
   const config = { 
-    collection: "products", 
+    collection: "products",
+    method: "get", 
     type: "docs", 
     filter: (filteredBy === "show all" || filteredBy === "category not found") ? null : filteredBy,  
   }

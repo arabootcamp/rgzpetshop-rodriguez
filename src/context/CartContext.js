@@ -5,46 +5,39 @@ const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // agregar cierta cantidad de un ítem al carrito
+  // agregar cierta cantidad de producto al carrito
   const addItem = (item, quantity) => {
-    if (isInCart(item.id)) {
-      const newCart = cart.map(product => {
-        if (product.id === item.id) {
-          product.quantity += quantity;
-        }
-        return product;
-      });
-      setCart(newCart);
+    let productIndex = productIndexInTheCart(item.id)
+    if (productIndex !== -1) {;
+      const cartCopy = cart.slice(0);// se genera una copia para no mutar directamente a cart
+      cartCopy[productIndex].quantity += quantity;
+      setCart(cartCopy);
     } 
-    else {
-      const newItem = {
-        ...item,
-        quantity
-      };
-      setCart([...cart, newItem]);
-    }
+    else 
+      setCart([...cart, { ...item, quantity }]);
   }
 
-  // Remover un item del cart por usando su id
-  const removeItem = id => {
-    setCart(cart.filter(el => el.id !== id));
-  }
+  // Remover un item del cart usando su id de producto
+  const removeItem = id => setCart(cart.filter(el => el.id !== id));
 
   // Remover todos los items
   const clear = () => setCart([]);
 
-  //isInCart: (id) => true|false,  solicitado en ejercicio
-  const isInCart = id => cart.some(product => product.id === id);
+  //isInCart (utilizado hasta el desafio 10), se cambia por la siguiente funcion
+  const productIndexInTheCart = id => cart.findIndex(product => product.id === id);
 
   //funciones adicionales
-  const totalNumberOfProductsInCart = () => ((cart.length === 0) ? 0 : cart.reduce((acc, curr) => (acc + curr.quantity), 0));
+  //2 balones + 1 cuerda son 3 productos totales.
+  const sumOfAllQuantitiesInTheCart = () => ((cart.length === 0) ? 0 : cart.reduce((acc, curr) => (acc + curr.quantity), 0));
 
-  const quantityOfProductInTheCart = id => {
+  const quantityForASpecificProductInTheCart = id => {
     let index = cart.findIndex(el => el.id === id);
     return (index === -1) ? 0 : cart[index].quantity;
   }
 
   const amountToBePaid = () => ((cart.length === 0) ? 0 : cart.reduce((acc, curr, idx) => (acc + curr.price * curr.quantity), 0));
+
+  const isCartEmpty = () => (cart.length ? false : true);
 
   //datos del contexto
   const data = {
@@ -52,12 +45,16 @@ const CartProvider = ({ children }) => {
     addItem,
     removeItem,
     clear,
-    totalNumberOfProductsInCart,
-    quantityOfProductInTheCart,
+    sumOfAllQuantitiesInTheCart,
+    quantityForASpecificProductInTheCart,
     amountToBePaid,
+    isCartEmpty
   }
 
-  return ( <CartContext.Provider value = { data } > { children } </CartContext.Provider>
+  return ( 
+    <CartContext.Provider value = { data } > 
+      { children } 
+    </CartContext.Provider>
   );
 }
 

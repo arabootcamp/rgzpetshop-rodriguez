@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faTrashCan, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
-import { numberFormatFn } from '../../helpers/customFunctions';
+import { numberFormatFn } from '../../utils/customFunctions';
 
 const ProductsTable = () => {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const ProductsTable = () => {
         </div>
       </Container>
       <hr />
-      <Button variant="outline-danger" onClick={() => { clear() }}>
+      <Button variant="outline-danger" className="px-5 rounded-0 mt-3" onClick={() => { clear() }}>
         Eliminar todo <FontAwesomeIcon icon={faTrash} className="fs-4" />
       </Button>
     </div>

@@ -6,8 +6,8 @@ import AppRouter from './routes/AppRouter';
 function App() {
   return ( 
     <CategoriesProvider>
-      < CartProvider>
-        < AppRouter />
+      <CartProvider>
+        <AppRouter />
       </CartProvider> 
     </CategoriesProvider>
   );

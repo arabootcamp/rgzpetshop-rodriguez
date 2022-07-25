@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPaw,faSignIn} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
 import { CategoriesContext } from '../../context/CategoriesContext';
-import { firstLetterUpperCase } from '../../helpers/customFunctions';
+import { firstLetterUpperCase } from '../../utils/customFunctions';
 import Navbar from 'react-bootstrap/Navbar';
 import CartWidget from '../CartWidget';
 

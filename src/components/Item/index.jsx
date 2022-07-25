@@ -3,11 +3,11 @@ import styles from './styles.module.scss';
 import { Card, Button, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
-import { numberFormatFn } from '../../helpers/customFunctions';
+import { numberFormatFn } from '../../utils/customFunctions';
 
 const Item = ({ product }) => {
   const navigate = useNavigate();
-  const { quantityOfProductInTheCart } = useContext(CartContext);
+  const { quantityForASpecificProductInTheCart } = useContext(CartContext);
 
   const handleDetail = () => navigate(`/item/${product.id}`);
 
@@ -23,7 +23,7 @@ const Item = ({ product }) => {
             <Button variant="primary" onClick={handleDetail} className={`${styles.btn_custom_hover} rounded-0 w-100 btn-custom-hover`}>Ver detalle</Button>
           </div>
         </Card.Body>
-        <span className="text-end text-primary me-3 mb-2"><strong>stock:</strong><i className=''> {numberFormatFn(product.stock - quantityOfProductInTheCart(product.id))}</i></span>
+        <span className="text-end text-primary me-3 mb-2"><strong>stock:</strong><i className=''> {numberFormatFn(product.stock - quantityForASpecificProductInTheCart(product.id))}</i></span>
       </Card>
     </Col>
   );

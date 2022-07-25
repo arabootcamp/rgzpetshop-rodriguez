@@ -9,6 +9,7 @@ const ItemDetailContainer = () => {
   const params = useParams();
   const config = {
     collection: "products",
+    method: "get",
     type: "doc",
     filter: params.productId || ''
   };
