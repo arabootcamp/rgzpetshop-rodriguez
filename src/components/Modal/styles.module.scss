@@ -14,10 +14,9 @@
 .modal_container {
   position: relative;
   padding: 1.5rem;
-  min-width: 280px;
-  //max-width: 480px;
+  width: 95vw;
   min-height: 200px;
-  //max-height: 600px;
+  max-height: 100vh;
   overflow-y: auto;
   background-color: #fff;
 }
@@ -30,4 +29,22 @@
 
 .modal.is_open {
   display: flex;
+}
+
+@media (min-width: 568px) {
+  .modal_container {
+      width: 90vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal_container {
+    width: 60vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal_container {
+    width: 50vw;
+  }
 }

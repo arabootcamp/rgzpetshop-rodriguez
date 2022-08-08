@@ -1,31 +1,45 @@
-import { useState, useEffect } from 'react';
-import { db } from '../firebase/config';
-import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { db } from "../firebase/config";
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
-export const useFirestore = ( config ) => {
-  const { collection: collectionParam, method, type, filter }=config;
+export const useFirestore = (config) => {
+  const { collection: collectionParam, method, type, filter } = config;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState({ status: false, message: "" });
 
   useEffect(() => {
+    /*Seteo valores por defecto antes de ejecutar una consulta*/
+    setError({ status: false, message: "" });
+    setData([]);
     setLoading(true);
+
     const getCollectionDoc = async () => {
       try {
         const docRef = doc(db, collectionParam, filter);
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) setData({id: filter,...docSnap.data()});
-        else setError({ status: true, message: `El id de producto no existe` });
-      }
-      catch (err) {
-        console.log(err);
-
-        setError({ status: true, message: `Error al consultar un elemento de la coleccion ${collectionParam}` });
-      }
-      finally {
+        if (docSnap.exists()) setData({ id: filter, ...docSnap.data() });
+        else
+          setError({
+            status: true,
+            message: `El identificador no existe en la collection ${collectionParam}`,
+          });
+      } catch (err) {
+        setError({
+          status: true,
+          message: `Error al consultar un elemento de la collection ${collectionParam}`,
+        });
+      } finally {
         setLoading(false);
       }
-    }
+    };
 
     const getCollectionDocs = async () => {
       try {
@@ -34,20 +48,24 @@ export const useFirestore = ( config ) => {
         querySnapshot.forEach((doc) => {
           results.push({ id: doc.id, ...doc.data() });
         });
-        setData(results); 
-      }
-      catch (err) {
+        setData(results);
+      } catch (err) {
         console.log(err);
-        setError({ status: true, message: `Error al consultar coleccion ${collection}` });
+        setError({
+          status: true,
+          message: `Error al consultar collection ${collection}`,
+        });
+      } finally {
+        setLoading(false);
       }
-      finally {
-        setLoading(false); 
-      }
-    }
+    };
 
     const getCollectionMultipleDocs = async () => {
       try {
-        const q = query(collection(db, collectionParam), where("category", "==", filter));
+        const q = query(
+          collection(db, collectionParam),
+          where("category", "==", filter)
+        );
         const querySnapshot = await getDocs(q);
         const results = [];
         querySnapshot.forEach((doc) => {
@@ -55,26 +73,24 @@ export const useFirestore = ( config ) => {
           results.push({ id: doc.id, ...doc.data() });
         });
         setData(results);
-      }
-      catch (err) {
+      } catch (err) {
         console.log(err);
-        setError({ status: true, message: `Error al consultar los productos asociados a una categoria en la coleccion ${collection}` });
-      }
-      finally {
+        setError({
+          status: true,
+          message: `Error al consultar los productos asociados a una categoria en la coleccion ${collection}`,
+        });
+      } finally {
         setLoading(false);
       }
-    }
+    };
 
-    if(method === "get"){
+    if (method === "get") {
       if (type === "doc") getCollectionDoc();
       else if (type === "docs" && filter === null) getCollectionDocs();
       else if (type === "docs" && filter !== null) getCollectionMultipleDocs();
       else setError({ status: true, message: "config.type no definido" });
-    }
-    else 
-      setError({ status: true, message: "config.method no definido" });
-
+    } else setError({ status: true, message: "config.method no definido" });
   }, [collectionParam, method, type, filter]);
 
   return { data, loading, error };
-}
+};

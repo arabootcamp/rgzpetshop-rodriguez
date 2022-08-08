@@ -1,20 +1,16 @@
-import {
-  db
-} from "../firebase/config";
+import { db } from "../../firebase/config";
 import {
   addDoc,
   collection,
   doc,
   getDoc,
-  writeBatch
+  writeBatch,
 } from "firebase/firestore";
 
 export const savePurchaseOrder = async (order) => {
   const batch = writeBatch(db);
   const productsOutOfStock = [];
-  const {
-    items
-  } = order;
+  const { items } = order;
 
   for (let i = 0; i < items.length; i++) {
     const productInCart = items[i];
@@ -23,11 +19,11 @@ export const savePurchaseOrder = async (order) => {
     if (docSnap.exists()) {
       const product = {
         ...docSnap.data(),
-        id: docSnap.id
+        id: docSnap.id,
       };
       if (product.stock >= productInCart.quantity) {
         await batch.update(doc(db, "products", product.id), {
-          stock: product.stock - productInCart.quantity
+          stock: product.stock - productInCart.quantity,
         });
       } else {
         productsOutOfStock.push(product);
@@ -36,8 +32,8 @@ export const savePurchaseOrder = async (order) => {
       // doc.data() will be undefined in this case
       return {
         status: "doc.data() undefined",
-        message: "Hay un documento del producto indefinido"
-      }
+        message: "Hay un documento del producto indefinido",
+      };
     }
   }
 
@@ -48,12 +44,12 @@ export const savePurchaseOrder = async (order) => {
       status: "ok",
       message: `La orden se ha generado su id es ${docRef.id}`,
       orderId: docRef.id,
-      productsOutOfStock
+      productsOutOfStock,
     };
   } else
     return {
       status: "productsOutOfStock",
       message: "Hay productos fuera de stock",
       productsOutOfStock,
-    }
-}
+    };
+};

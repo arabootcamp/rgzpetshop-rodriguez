@@ -2,26 +2,28 @@
 ***
 ## Descripción
 Aplicación de tienda para mascotas (perro y gato) con 3 categorias de productos: 
-- alimento
-- farmacia
+- alimento.
+- farmacia.
 - juguetes y accesorios. 
 
 ## Tecnología/Dependencias
-
 Librerias, Framework:
-- React, react-router-dom , bootstrap-react, sass, fortawesome, sweet alert 2
+[react-url]: biblioteca de JavaScript para construir interfaces de usuario.
+[react-router-dom-url]: permite implementar enrutamiento dinamico en la aplicación web.
+[bootstrap-react-url]: framework basado en componentes para el diseño de la aplicación web.
+[sass-url]: preprocesador de css que permite generar de forma automatica hojas estilo. Este preprocesador tiene la ventaja que nos permite utilizar caracteristicas que aplican a lenguajes de programación (variables, funciones, selectores anidados, herencia, etcétera).
+[fortawesome-url]: repositorio de iconos.
 
-Consideraciones
-- Por el momento y para facilidad de las entregas se utiliza https://fakestoreapi.com sin embargo más adelante se construira la api relativa al Ecomerce Tienda de Mascotas rgzpetshop
-
-## Rutas del sitio
-Las rutas para navegar sobre el sitio son:
-- ‘/’ navega a <ItemListContainer />
-- ‘/category/:id’  navega a <ItemListContainer /> (muestra los productos asociados a una categoria, id puede tomar los valores: electronics, jewelery, men's%20clothing y women's%20clothing)
-- ‘/item/:id’ navega a <ItemDetailContainer /> (muestra el detalle de un producto, el id puede ser un número del 1 al 20 e identifica a un producto)
+## Rutas del sitio:
+- "/": muestra el home del sitio.
+- "/categories/categoryName": muestra alguna de las categorias del sitio (alimento, farmacia o juguetes y accesorios).
+- "/item/productId": muestra el detalle de un producto en especifico, identificado por su "id".
+- "/cart": muestra los productos que se han añadido al carro.
+- "/signin": muestra formulario para logearse en la aplicación.
+- "/signout": muestra formulario para registrarse en la aplicación (solo se implementó la vista, hace nada al dar click en registrarse).
+- "/ordersearch": muestra un formulario para buscar una orden en especifico, mediante el id de orden.
 
 ## Ejecutar el programa
-
 Instale dependencias...
 ```sh
 npm i
@@ -33,7 +35,25 @@ npm start
 
 ## Otros comentarios
 
-### Desafío 11 - Item collection
+### Entrega Final
+Contenido [git-repo-url]:
+- Fuentes aplicación
+- Video que muestra la navegabilidad y los flujos básicos de la aplicación.
+
+Deploy app en firebase [app-react-firebase]
+
+Consideraciones, según lo solicitado en el desafío final:
+- "El cart debe ser accesible durante toda la experiencia y tener una indicación de la cantidad de items incluidos agregados". Hasta el desafio 11 el cart solo se mostraba si habia producto en este, pero ahora se modifico según lo indicado.
+
+Extras implementados:
+- auth/login. 
+- Stock check, se valida con batch updates.
+- Categorías dinámicas, se creo collection categories(id,name)
+- Cart persistente, se implementó un hooks para guardar en localStorage
+- Mis órdenes, en ruta "/ordersearch" y se elimino ruta "orders" creada en desadío 11
+
+
+### Desafío 11 - Item collection II
 Consideraciones
 - Se elimina el React.StrictMode para evitar duplicados en insert a firestore.
 - Se utilizo Batch Updates para el stock de productos y luego crear la orden.
@@ -106,3 +126,11 @@ Para desplegar en desarrollo...
 ```sh
 npm start
 ```
+
+[git-repo-url]: <https://github.com/arabootcamp/rgzpetshop-rodriguez>
+[app-react-firebase]: <https://firebase.google.com/>
+[react-url]: <https://es.reactjs.org/>
+[react-router-dom-url]: <https://reactrouter.com/>
+[bootstrap-react-url]: <https://react-bootstrap.github.io/>
+[sass-url]: <https://sass-lang.com/>
+[fortawesome-url]: <https://fortawesome.com/>

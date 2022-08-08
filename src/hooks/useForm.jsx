@@ -10,7 +10,7 @@ export const useForm = (initialForm, validateForm) => {
     const { name, value } = e.target;
     setForm({
       ...form,
-      [name]: value,
+      [name]: value.trim(),
     });
   };
 
@@ -24,6 +24,7 @@ export const useForm = (initialForm, validateForm) => {
     e.preventDefault();
     setErrors(validateForm(form));
     if (Object.keys(errors).length === 0) {
+      setResponse({});
       setLoading(true);
       customRequest()
         .then(res => setResponse(res))

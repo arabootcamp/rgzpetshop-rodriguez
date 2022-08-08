@@ -1,39 +1,74 @@
-import React, { useContext } from 'react';
-import styles from './styles.module.scss';
+import React, { useContext } from "react";
+import styles from "./styles.module.scss";
 import { Alert, Button } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../../context/CartContext';
-import ProductsList from '../../components/ProductsList';
-import { Modal } from '../../components/Modal';
-import { useModal } from '../../hooks/useModal';
-import BuyerForm from '../../components/BuyerForm';
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
+import ProductsList from "../../components/ProductsList";
+import { Modal } from "../../components/Modal";
+import { useModal } from "../../hooks/useModal";
+import BuyerForm from "../../components/BuyerForm";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { cart, amountToBePaid, isCartEmpty } = useContext(CartContext);
-  //grabar un objeto del formato { buyer: { name, phone, email }, items: [{ id, title, price }], date, total }
-  const items = cart.map(el => ({ id: el.id, title: el.title, price: el.price, quantity: el.quantity }));
-  const purchaseOrder = { buyer: { name: "", phone: "", email: "" }, items, date: new Date().toLocaleString(), amountToBePaid: amountToBePaid() };
-  //modal para pedir datos de comprador
-  const {isOpenModal, openModal, closeModal} = useModal(false);
+  const { isCartEmpty, clear } = useContext(CartContext);
 
-  const confirmPurchaseOrder = () => openModal();
+  //modal para pedir datos de comprador
+  const { isOpenModal, openModal, closeModal } = useModal(false);
+  const processOrder = () => openModal();
+
+  //función quye activa el hijo formBuyer, si se ingreso la orden a firebase se vacia el carro
+  const emptyCart = (emptyCart)=>{
+    emptyCart && clear();
+  }
 
   return (
     <div className="my-5 text-center">
       <h2 className="mb-5">Lista de productos del carrito</h2>
-      {isCartEmpty()
-        ? <>
-          <Alert key="warning" variant="warning"> El carrito esta vacio (no hay items)</Alert>
-          <Button variant="primary" className={`${styles.btn_custom_hover} px-5 rounded-0 mt-3`} onClick={() => navigate("/")}>Ir al catalogo de productos </Button>
+      {isCartEmpty() ? (
+        <>
+          <Alert key="warning" variant="warning">
+            {" "}
+            El carrito esta vacio (no hay productos)
+          </Alert>
+          <Button
+            variant="primary"
+            className={`${styles.btn_custom_hover} px-5 rounded-0 mt-3`}
+            onClick={() => navigate("/")}
+          >
+            Ir al catálogo de productos{" "}
+          </Button>
         </>
-        : <>
+      ) : (
+        <>
           <ProductsList />
-          {isOpenModal && <Modal isOpen={isOpenModal} closeModal={closeModal}> <BuyerForm order={purchaseOrder}/> </Modal>}
-          <Button variant="primary" className={`${styles.btn_custom_hover} px-5 rounded-0 mt-4`} onClick={confirmPurchaseOrder}>Confirmar orden de compra</Button>
-        </>}
+          <hr />
+          <div className="d-flex justify-content-around">
+              <Button
+                variant="outline-danger"
+                className="px-sm-5 rounded-0"
+                onClick={() => {
+                  clear();
+                }}
+              >
+                Vaciar Carrito
+              </Button>
+              <Button
+                variant="primary"
+                className={`${styles.btn_custom_hover} px-sm-5 rounded-0`}
+                onClick={processOrder}
+              >
+                Ingresar orden
+              </Button>
+          </div>
+          {isOpenModal && (
+            <Modal isOpen={isOpenModal} closeModal={closeModal}>
+              <BuyerForm emptyCart={emptyCart}/>
+            </Modal>
+          )}
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default Cart;
