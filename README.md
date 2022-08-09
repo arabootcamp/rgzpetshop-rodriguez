@@ -38,8 +38,8 @@ npm start
 ### Entrega Final
 Contenido [git-repo-url]:
 - Fuentes aplicación
-- Video que muestra la navegabilidad y los flujos básicos de la aplicación.
 
+Video que muestra la navegabilidad y los flujos básicos de la aplicación [video]
 Deploy app en firebase [app-react-firebase]
 
 Consideraciones, según lo solicitado en el desafío final:
@@ -131,7 +131,8 @@ npm start
 ```
 
 [git-repo-url]: <https://github.com/arabootcamp/rgzpetshop-rodriguez>
-[app-react-firebase]: <https://firebase.google.com/>
+[video]: <https://drive.google.com/drive/folders/10XQTw_KdRE5I6KbmSKv7kCM2sqJgBHbp?usp=sharing>
+[app-react-firebase]: <https://rgzpetshop.web.app>
 [react-url]: <https://es.reactjs.org/>
 [react-router-dom-url]: <https://reactrouter.com/>
 [bootstrap-react-url]: <https://react-bootstrap.github.io/>

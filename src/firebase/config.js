@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDij8oWw9Gar0HcvJI2n8gCWX3wOPuxrvc",
-  authDomain: "project-react-73c17.firebaseapp.com",
-  projectId: "project-react-73c17",
-  storageBucket: "project-react-73c17.appspot.com",
-  messagingSenderId: "1095719918379",
-  appId: "1:1095719918379:web:c096359f61e23f4238436e",
+  apiKey: "AIzaSyCftWB3moAPX2__hxEyrj9VJqQJ666kAvo",
+  authDomain: "rgzpetshop.firebaseapp.com",
+  projectId: "rgzpetshop",
+  storageBucket: "rgzpetshop.appspot.com",
+  messagingSenderId: "1012496582348",
+  appId: "1:1012496582348:web:c79b5f55b269b1f91c6469",
 };
 
 // Initialize Firebase
