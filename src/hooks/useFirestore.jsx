@@ -50,7 +50,6 @@ export const useFirestore = (config) => {
         });
         setData(results);
       } catch (err) {
-        console.log(err);
         setError({
           status: true,
           message: `Error al consultar collection ${collection}`,
@@ -74,7 +73,6 @@ export const useFirestore = (config) => {
         });
         setData(results);
       } catch (err) {
-        console.log(err);
         setError({
           status: true,
           message: `Error al consultar los productos asociados a una categoria en la coleccion ${collection}`,

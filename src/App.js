@@ -1,15 +1,18 @@
-import React from 'react'
-import CartProvider from './context/CartContext';
-import CategoriesProvider from './context/CategoriesContext';
-import AppRouter from './routes/AppRouter';
+import React from "react";
+import AuthProvider from "./context/AuthContext";
+import CategoriesProvider from "./context/CategoriesContext";
+import CartProvider from "./context/CartContext";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
-  return ( 
-    <CategoriesProvider>
-      <CartProvider>
-        <AppRouter />
-      </CartProvider> 
-    </CategoriesProvider>
+  return (
+    <AuthProvider>
+      <CategoriesProvider>
+        <CartProvider>
+          <AppRouter />
+        </CartProvider>
+      </CategoriesProvider>
+    </AuthProvider>
   );
 }
 

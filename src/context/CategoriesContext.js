@@ -11,7 +11,6 @@ const CategoriesProvider = ({children}) =>{
     return 0;
    })
   const data={categories}; 
-  console.log(data);
 
   return (
     <CategoriesContext.Provider value={data}>

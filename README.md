@@ -52,6 +52,9 @@ Extras implementados:
 - Cart persistente, se implementó un hooks para guardar en localStorage
 - Mis órdenes, en ruta "/ordersearch" y se elimino ruta "orders" creada en desadío 11
 
+Usuario default:
+- correo: test@react.com 
+- contraseña: 123456
 
 ### Desafío 11 - Item collection II
 Consideraciones

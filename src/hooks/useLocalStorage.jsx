@@ -15,7 +15,7 @@ export const useLocalStorage = (key, initialValue) => {
       setStoredValue(value);
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.error(error);
+      ////simplemente se va a perder el dato ... más adelante podria enviarse un mensaje o solo console.error(error); para user más avanzado
     }
   };
 

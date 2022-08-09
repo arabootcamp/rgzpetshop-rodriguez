@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.scss";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { emailExpReg } from "../../utils/regExp";
 import { useForm } from "../../hooks/useForm";
-import { signinService } from "../../service/signinService";
+import { signInService } from "../../utils/request/signInService";
+import Loader from "../../components/Loader";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const initialForm = {
   email: "",
@@ -33,6 +37,23 @@ const SignIn = () => {
     handleSubmit,
   } = useForm(initialForm, validationsForm);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const {user,setUser}=useContext(AuthContext);
+
+  //montaje
+  useEffect(() => {
+    if(user.signIn){
+      navigate("/");
+    }
+  }, [user, navigate])
+  
+
+  useEffect(() => { 
+    if(response.status==="ok") {
+      setUser({signIn:"true", email: form.email});
+      navigate("/");
+    }
+  }, [response, navigate, setUser, form]);
 
   return (
     <section className="">
@@ -98,8 +119,17 @@ const SignIn = () => {
                 </Form.Text>
               </Form.Group>
 
-              <div className="text-start">
-                <Button variant="primary" type="submit" className="rounded-0">
+              <div className="text-center">
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="rounded-0"
+                  onClick={(e) =>
+                    handleSubmit(e, () =>
+                      signInService(form.email, form.password)
+                    )
+                  }
+                >
                   Iniciar sesión
                 </Button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
@@ -110,6 +140,21 @@ const SignIn = () => {
                 </p>
               </div>
             </Form>
+            <div className="text-center my-3">
+              {loading ? (
+                <Loader />
+              ) : (
+                response.status === "fail" && (
+                  <Alert
+                    key="response-signin"
+                    variant={"danger"}
+                    className="my-5"
+                  >
+                    {response.error?.messagge}
+                  </Alert>
+                )
+              )}
+            </div>
           </Col>
         </Row>
       </Container>
