@@ -8,11 +8,11 @@ Aplicación de tienda para mascotas (perro y gato) con 3 categorias de productos
 
 ## Tecnología/Dependencias
 Librerias, Framework:
-[react-url]: biblioteca de JavaScript para construir interfaces de usuario.
-[react-router-dom-url]: permite implementar enrutamiento dinamico en la aplicación web.
-[bootstrap-react-url]: framework basado en componentes para el diseño de la aplicación web.
-[sass-url]: preprocesador de css que permite generar de forma automatica hojas estilo. Este preprocesador tiene la ventaja que nos permite utilizar caracteristicas que aplican a lenguajes de programación (variables, funciones, selectores anidados, herencia, etcétera).
-[fortawesome-url]: repositorio de iconos.
+- [react-url]: biblioteca de JavaScript para construir interfaces de usuario.
+- [react-router-dom-url]: permite implementar enrutamiento dinamico en la aplicación web.
+- [bootstrap-react-url]: framework basado en componentes para el diseño de la aplicación web.
+- [sass-url]: preprocesador de css que permite generar de forma automatica hojas estilo. Este preprocesador tiene la ventaja que nos permite utilizar caracteristicas que aplican a lenguajes de programación (variables, funciones, selectores anidados, herencia, etcétera).
+- [fortawesome-url]: repositorio de iconos.
 
 ## Rutas del sitio:
 - "/": muestra el home del sitio.
@@ -36,11 +36,9 @@ npm start
 ## Otros comentarios
 
 ### Entrega Final
-Contenido [git-repo-url]:
-- Fuentes aplicación
-
-Video que muestra la navegabilidad y los flujos básicos de la aplicación [video]
-Deploy app en firebase [app-react-firebase]
+- Contenido [git-repo-url]: fuentes aplicación
+- Video que muestra la navegabilidad y los flujos básicos de la aplicación [video]
+- Deploy app en firebase [app-react-firebase]
 
 Consideraciones, según lo solicitado en el desafío final:
 - "El cart debe ser accesible durante toda la experiencia y tener una indicación de la cantidad de items incluidos agregados". Hasta el desafio 11 el cart solo se mostraba si habia producto en este, pero ahora se modifico según lo indicado.
